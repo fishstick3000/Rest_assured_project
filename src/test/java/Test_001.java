@@ -1,16 +1,15 @@
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
+import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Test_001 {
 
-    @BeforeTest
+    @BeforeClass
     public static void setup() {
         when().
                 delete("http://localhost:3000/todos").
@@ -20,7 +19,7 @@ public class Test_001 {
 
 
     @Test
-    void test_01() {
+    public void getTodosTest() {
 
         JSONObject request = new JSONObject();
 

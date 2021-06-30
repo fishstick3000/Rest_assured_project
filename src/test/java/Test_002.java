@@ -1,5 +1,4 @@
-import org.testng.annotations.Test;
-
+import org.junit.Test;
 import static io.restassured.RestAssured.when;
 
 public class Test_002 {

@@ -1,15 +1,15 @@
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 public class Test_004 {
 
-    @BeforeTest
+    @BeforeClass
     public static void setup() {
         when().
                 delete("http://localhost:3000/todos").
@@ -18,7 +18,7 @@ public class Test_004 {
     }
 
     @Test
-    public void test_post() {
+    public void postTodoTest() {
 
         JSONObject request = new JSONObject();
 
