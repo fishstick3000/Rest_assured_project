@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.equalTo;
 
 public class Test_004 {
 
@@ -37,6 +38,14 @@ public class Test_004 {
                 post(siteTodos).
                 then().
                 statusCode(201);
+
+        given().
+                get(siteTodos).
+                then().
+                statusCode(200).
+                body("title[0]", equalTo("Create a test todo")).
+                body("completed[0]", equalTo(false)).
+                body("id[0]", equalTo("101010101"));
 
 
     }
