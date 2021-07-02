@@ -9,18 +9,25 @@ import static io.restassured.RestAssured.when;
 
 public class Test_003 {
 
+    public static String siteTodos = "http://localhost:3000/todos";
+
     @BeforeClass
     public static void setup() {
         when().
-                delete("http://localhost:3000/todos").
+                delete(siteTodos).
                 then().
                 statusCode(204);
 
         JSONObject request = new JSONObject();
+        JSONObject request2 = new JSONObject();
 
         request.put("title", "Create a test todo");
         request.put("completed", false);
         request.put("id", "101010101");
+
+        request2.put("title", "Test Todo 2");
+        request2.put("completed", true);
+        request2.put("id", "202020202");
 
         given().
                 header("Content-Type", "application/json").
@@ -28,7 +35,17 @@ public class Test_003 {
                 accept(ContentType.JSON).
                 body(request.toJSONString()).
                 when().
-                post("http://localhost:3000/todos").
+                post(siteTodos).
+                then().
+                statusCode(201);
+
+        given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                body(request2.toJSONString()).
+                when().
+                post(siteTodos).
                 then().
                 statusCode(201);
 
@@ -40,7 +57,7 @@ public class Test_003 {
     public void deleteByIdTest() {
 
         given().
-                delete("http://localhost:3000/todos/101010101").
+                delete(siteTodos + "/101010101").
                 then().
                 statusCode(200);
 
@@ -49,7 +66,7 @@ public class Test_003 {
     @AfterClass
     public static void cleanUp() {
         when().
-                delete("http://localhost:3000/todos").
+                delete(siteTodos).
                 then().
                 statusCode(204);
     }

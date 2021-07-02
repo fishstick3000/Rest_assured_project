@@ -9,10 +9,12 @@ import static io.restassured.RestAssured.when;
 
 public class Test_004 {
 
+    public static String siteTodos = "http://localhost:3000/todos";
+
     @BeforeClass
     public static void setup() {
         when().
-                delete("http://localhost:3000/todos").
+                delete(siteTodos).
                 then().
                 statusCode(204);
     }
@@ -32,17 +34,21 @@ public class Test_004 {
                 accept(ContentType.JSON).
                 body(request.toJSONString()).
                 when().
-                post("http://localhost:3000/todos").
+                post(siteTodos).
                 then().
                 statusCode(201);
 
 
     }
 
+    // edge cases for duplicate fields
+    // break out variables and make things more generic
+
+
     @AfterClass
     public static void cleanUp() {
         when().
-                delete("http://localhost:3000/todos").
+                delete(siteTodos).
                 then().
                 statusCode(204);
     }
